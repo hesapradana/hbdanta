@@ -185,9 +185,6 @@ export const scene7 = {
 
 export const scene10 = {
   lines: [
-    { t: "kamu udah sampe.", size: 26 },
-    { t: "ke puncak.", size: 30, warm: true },
-    { t: "dan ...", size: 24, faint: true },
     { t: "selamat", size: 28 },
     { t: "selamat.", size: 34, warm: true },
   ],

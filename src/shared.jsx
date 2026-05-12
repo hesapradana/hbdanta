@@ -106,6 +106,55 @@ export const audio = {
   },
 }
 
+export const rain = {
+  el: null,
+  started: false,
+  _raf: null,
+  _tryPlay: null,
+
+  start() {
+    if (this.started) return;
+    this.el = new window.Audio('/assets/hujan.mp3');
+    this.el.loop = true;
+    this.el.volume = 0;
+    this.started = true;
+
+    this._tryPlay = () => {
+      this.el.play().then(() => {
+        if (this._tryPlay) this._fadeTo(0.6, 2000);
+        this._clearTryPlay();
+      }).catch(() => {});
+    };
+
+    this._tryPlay();
+    document.addEventListener('click', this._tryPlay);
+    document.addEventListener('keydown', this._tryPlay);
+    document.addEventListener('touchstart', this._tryPlay);
+  },
+
+  _clearTryPlay() {
+    if (!this._tryPlay) return;
+    document.removeEventListener('click', this._tryPlay);
+    document.removeEventListener('keydown', this._tryPlay);
+    document.removeEventListener('touchstart', this._tryPlay);
+    this._tryPlay = null;
+  },
+
+  _fadeTo(target, ms, cb) {
+    if (!this.el) return;
+    if (target === 0) this._clearTryPlay();
+    if (this._raf) cancelAnimationFrame(this._raf);
+    const start = this.el.volume, diff = target - start, t0 = performance.now();
+    const step = (now) => {
+      const p = Math.min((now - t0) / ms, 1);
+      this.el.volume = Math.max(0, Math.min(1, start + diff * p));
+      if (p < 1) { this._raf = requestAnimationFrame(step); }
+      else { this._raf = null; if (cb) cb(); }
+    };
+    this._raf = requestAnimationFrame(step);
+  },
+};
+
 export function Progress({ idx, total, label }) {
   return (
     <div className="progress">

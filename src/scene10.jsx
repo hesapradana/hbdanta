@@ -13,12 +13,9 @@ export function Scene10({ active, onReset }) {
     if (!active) return;
     const t = [
       setTimeout(() => setLine(1), 2200),
-      setTimeout(() => setLine(2), 5600),
-      setTimeout(() => setLine(3), 8800),
-      setTimeout(() => setLine(4), 12400),
-      setTimeout(() => setLine(5), 15600),
-      setTimeout(() => setShowBig(true), 18400),
-      setTimeout(() => setShowBtn(true), 21000),
+      setTimeout(() => setLine(2), 5200),
+      setTimeout(() => setShowBig(true), 8000),
+      setTimeout(() => setShowBtn(true), 10600),
     ];
     return () => t.forEach(clearTimeout);
   }, [active]);

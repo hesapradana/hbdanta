@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Rain, audio } from "./shared";
+import { Rain, audio, rain } from "./shared";
 import { scene6 } from "./content";
 
 export function Scene6({ active, onAdvance }) {
@@ -11,10 +11,10 @@ export function Scene6({ active, onAdvance }) {
 
   useEffect(() => {
     if (!active) {
-      // fade out serta mulia dan reset state saat meninggalkan scene
       if (audio.el) {
         audio._fadeTo(0, 1000, () => { if (audio.el) audio.el.pause(); });
       }
+      rain._fadeTo(0.3, 1500);
       setRecorderOn(false);
       setLine(0);
       setDone(false);
@@ -158,6 +158,7 @@ export function Scene6({ active, onAdvance }) {
               onClick={() => {
               if (!recorderOn) {
                 setRecorderOn(true);
+                rain._fadeTo(0, 1500);
                 if (!audio.started) audio.start();
                 if (audio.el) {
                   audio.el.currentTime = 30;

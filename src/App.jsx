@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { audio, Progress } from "./shared";
+import { audio, rain, Progress } from "./shared";
 import { Scene0 } from "./scene0";
 import { SceneIntro } from "./sceneIntro";
 import { SceneJourney } from "./sceneJourney";
@@ -47,10 +47,8 @@ export default function App() {
   const reset = () => { localStorage.removeItem("hbd-scene"); navigateTo(0); };
 
   useEffect(() => {
-    if (idx >= 2) {
-      audio.setOn(true);
-      audio.setMood(SCENES[idx]?.mood || "soft");
-    }
+    audio.setMood(SCENES[idx]?.mood || "soft");
+    if (idx >= 1) rain.start();
   }, [idx]);
 
   useEffect(() => {
