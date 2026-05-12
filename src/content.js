@@ -2,8 +2,19 @@
 //  CONTENT — edit semua teks di sini
 // ─────────────────────────────────────────────
 
+export const sceneJourney = {
+  lines: [
+    { text: "hai?", delay: 0 },
+    { text: "luangin waktu buat nonton ini ya hehe", delay: 1800 },
+    { text: "kita naik mobil dulu", delay: 2200 },
+  ],
+  enterBtn: "[ naik ]",
+  angleBtn: "[ ganti angle ]",
+  stopBtn: "[ berhenti ]",
+};
+
 export const scene0 = {
-  loading: "loading dikit hehe...",
+  loading: "pegangan karena bakal alay...",
   soon: "sebentar ya.",
   embarrassing: "aku lagi nyiapin sesuatu yang sebenarnya agak personal.",
   tagline: "[ a small home tour. for you. ]",
@@ -11,28 +22,17 @@ export const scene0 = {
 
 export const scene1 = {
   lines: [
-    {
-      text: "ceritanya ini rumah gw haha..engga semua orang",
-      delay: 0,
-      size: 26,
-    },
-    { text: "boleh masuk ke sini.", delay: 1500, size: 26 },
-    { text: "tapi..", delay: 2400, size: 22, color: "var(--ink-dim)" },
-    { text: "monggo pinarak..", delay: 1800, size: 30, className: "serif" },
+    { text: "sampaii..", delay: 0, size: 30, className: "serif" },
   ],
   enterBtn: "[ masuk ]",
 };
 
-export const scene2 = {
-  noteText: '"lepas gengsi sebelum masuk."',
-  doorHint: "klik pintu untuk masuk",
-};
 
 export const scene3 = {
   tvLines: [
-    "awalnya…",
-    "aku pikir kamu cuma lewat.",
-    "ternyata ampe sini juga ya.",
+    "yoo haiii..",
+    "ini tv ceritanya wkwk",
+    "[jelek beud tvnya]",
   ],
   polaroids: [
     {
@@ -41,7 +41,8 @@ export const scene3 = {
       y: "20%",
       rot: -8,
       label: "01",
-      text: "ini hari dimana aku mulai nunggu notif kamu.",
+      img: "/assets/polaroid/1.png",
+      text: "cie makan bareng",
     },
     {
       id: "p2",
@@ -49,7 +50,8 @@ export const scene3 = {
       y: "26%",
       rot: 6,
       label: "02",
-      text: "masih pura-pura biasa aja waktu itu.",
+      img: "/assets/polaroid/2.png",
+      text: "yah ujan ujanan",
     },
     {
       id: "p3",
@@ -57,7 +59,8 @@ export const scene3 = {
       y: "62%",
       rot: 4,
       label: "03",
-      text: '08:14 — "udah makan?"\n08:14 — "udah dong."\n08:15 — aku tahu itu bohong.',
+      img: "/assets/polaroid/3.png",
+      text: "konyoll wlee",
     },
     {
       id: "p4",
@@ -65,18 +68,19 @@ export const scene3 = {
       y: "66%",
       rot: -5,
       label: "04",
-      text: "hari biasa. ga ada apa-apa.\ntapi aku masih inget.",
+      img: "/assets/polaroid/4.png",
+      text: "couple dikit",
     },
   ],
   continueBtn: "[ dapur → ]",
-  polaroidHint: "klik polaroid untuk lihat.",
+  polaroidHint: "klik polaroid untuk lihat WAJIB URUT DARI 1-4.",
 };
 
 export const scene4 = {
   notes: [
     {
       id: "n1",
-      text: "kamu bilang terserah.\npadahal jawabannya\nudah ada di kepala.",
+      text: "13 mei",
       color: "#f1cf5a",
       rot: -4,
       x: "18%",
@@ -86,7 +90,7 @@ export const scene4 = {
 
     {
       id: "n2",
-      text: "mood kamu kadang\nberubah pelan-pelan.\ndan aku selalu kena efeknya.",
+      text: "13 mei",
       color: "#f49a7a",
       rot: 5,
       x: "32%",
@@ -96,7 +100,7 @@ export const scene4 = {
 
     {
       id: "n3",
-      text: 'kadang jawab chat\ncuma "iya".\nterus aku disuruh nebak\nlagi kenapa.',
+      text: "13 mei",
       color: "#9adcc4",
       rot: -3,
       x: "44%",
@@ -106,7 +110,7 @@ export const scene4 = {
 
     {
       id: "n4",
-      text: "kalau kamu tiba-tiba\njadi manis,\naku langsung curiga.",
+      text: "13 mei",
       color: "#c0b0e8",
       rot: 4,
       x: "56%",
@@ -116,7 +120,7 @@ export const scene4 = {
 
     {
       id: "n5",
-      text: 'kalau tiba-tiba diem,\naku langsung mikir:\n"salahku bagian mana ya?"',
+      text: "13 mei",
       color: "#f1cf5a",
       rot: -2,
       x: "70%",
@@ -126,7 +130,7 @@ export const scene4 = {
 
     {
       id: "n6",
-      text: 'suka bilang\n"gapapa."\npadahal nadanya\nudah beda.',
+      text: "13 mei",
       color: "#f49a7a",
       rot: 6,
       x: "82%",
@@ -135,82 +139,34 @@ export const scene4 = {
     },
   ],
 
-  specialNote: "tapi anehnya…\naku tetap betah\nsama semua itu.",
+  specialNote: "HARI APA YAAAA???",
 
   openHint: (count) => `buka semua note (${count}/6)`,
 
-  continueBtn: "[ lanjut → ]",
+  continueBtn: "[ lorong → ]",
 };
 export const scene5 = {
   lines: [
-    { y: 0.08, text: "engga semua hari terasa ringan." },
-    { y: 0.24, text: "kadang kita sama-sama diem." },
-    { y: 0.42, text: "kadang sama-sama keras kepala." },
-    { y: 0.6, text: "kadang sama-sama capek.", dim: true },
-    {
-      y: 0.78,
-      text: "tapi sejauh ini…\nmasih oke gasih.",
-      warm: true,
-    },
+    { text: "satu langkah.",        size: 22, btn: "[ langkah lagi → ]" },
+    { text: "dua langkah.",         size: 26, btn: "[ terus → ]" },
+    { text: "tiga.",                size: 30, btn: "[ hampir → ]" },
+    { text: "ada pintu di ujung.", size: 28, dim: true, btn: "[ mendekat → ]" },
+    { text: "yuk masuk.",           size: 34, warm: true, btn: "[ lihat → ]" },
   ],
-  footstep: ["tap. tap.", "tap."],
-  scrollHint: "↓ scroll",
-  continueBtn: "[ jalan terus → ]",
 };
 
 export const scene6 = {
-  doorSign: ["jangan", "dibuka."],
+  doorSign: ["ruang rahasia", "private room"],
   openBtn: "[ buka ]",
-  openHint: "(anehnya, yang dilarang justru bikin penasaran.)",
+
   recorder: [
-    "sebenernya…",
-    "aku juga suka bgt disium sium.",
-    "cuma susah bilang aja.",
-    "—",
-    "(pritt pritt)",
+    "kalo kata bang sal priadi...",
   ],
   recLabel: ["tap", "● REC"],
-  continueBtn: "[ tutup pintunya pelan-pelan → ]",
-};
-
-export const scene7 = {
-  bedLines: [
-    "aku susah romantis jujur.",
-    "kadang malah nyebelin.",
-    "kadang bikin kamu kesel.",
-    "tapi soal perasaan…",
-    "info lawan!!.",
-  ],
-  drawerLabel: "— laci kecil, isinya hal yang jarang aku omongin —",
-  drawerItems: [
-    "aku hafal cara kamu marah.",
-    "aku hafal cara kamu pura-pura gapapa.",
-    "aku hafal hal kecil yang bikin kamu ga nyaman...(mungkin)",
-  ],
-  drawerHint: "ada laci kecil di samping kasur.",
-  continueBtn: "[ ke cermin → ]",
-};
-
-export const scene8 = {
-  lines: [
-    "kadang aku mikir…",
-    "kenapa aku mikir?",
-    "maaf kamu jadi ikut mikir kan sekarang.",
-    "—",
-    "skip skip skip.",
-  ],
-  clickHint: "(klik)",
-  silentNote: "(sunyi beberapa detik.)",
-  continueBtn: "[ naik ke atas → ]",
-};
-
-export const scene9 = {
-  line1: "tapi tapi tapi... sebelum naik rooftop, aku cuma mau bilang satu hal.",
-  line2: "kuat kuat yaapss, selalu ada tempat sampah disini",
   continueBtn: "[ rooftop ↑ ]",
 };
 
-export const scene10 = {
+export const scene7 = {
   lines: [
     { t: "selamat ulang tahun ya sayang.", size: 38, warm: true },
     { t: "semoga setiap hari yang kamu lewati", size: 22 },
@@ -227,6 +183,19 @@ export const scene10 = {
   replayBtn: "↻ ulang dari awal",
 };
 
+export const scene10 = {
+  lines: [
+    { t: "kamu udah sampe.", size: 26 },
+    { t: "ke puncak.", size: 30, warm: true },
+    { t: "dan ...", size: 24, faint: true },
+    { t: "selamat", size: 28 },
+    { t: "selamat.", size: 34, warm: true },
+  ],
+  bigLine: "SELAMAAAT ULAAAH TAHUUUNNNN!!! WORLDDD!!!",
+  pulangBtn: "[ pulang ↓ ]",
+  replayBtn: "↻ ulang",
+};
+
 export const nav = {
   backBtn: "← balik",
   ambienceOn: "suasana on",
@@ -241,8 +210,5 @@ export const sceneLabels = [
   "dapur",
   "lorong",
   "ruang rahasia",
-  "kamar",
-  "cermin",
-  "tangga",
   "rooftop",
 ];

@@ -56,72 +56,53 @@ export function Rain({ density = 60, opacity = 0.35 }) {
 }
 
 export const audio = {
-  ctx: null, gain: null, rainNode: null, padGain: null,
+  el: null,
   started: false,
+  on: false,
+  _raf: null,
+
   start() {
     if (this.started) return
-    try {
-      const AC = window.AudioContext || window.webkitAudioContext
-      const ctx = new AC()
-      this.ctx = ctx
-      const master = ctx.createGain()
-      master.gain.value = 0.0
-      master.connect(ctx.destination)
-      this.gain = master
-
-      const bufferSize = 2 * ctx.sampleRate
-      const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate)
-      const out = noiseBuffer.getChannelData(0)
-      let b0 = 0, b1 = 0, b2 = 0
-      for (let i = 0; i < bufferSize; i++) {
-        const white = Math.random() * 2 - 1
-        b0 = 0.99765 * b0 + white * 0.0990460
-        b1 = 0.96300 * b1 + white * 0.2965164
-        b2 = 0.57000 * b2 + white * 1.0526913
-        out[i] = (b0 + b1 + b2 + white * 0.1848) * 0.18
-      }
-      const noise = ctx.createBufferSource()
-      noise.buffer = noiseBuffer
-      noise.loop = true
-      const bp = ctx.createBiquadFilter()
-      bp.type = 'bandpass'; bp.frequency.value = 900; bp.Q.value = 0.4
-      const hp = ctx.createBiquadFilter()
-      hp.type = 'highpass'; hp.frequency.value = 300
-      noise.connect(bp); bp.connect(hp); hp.connect(master)
-      noise.start()
-
-      const padGain = ctx.createGain()
-      padGain.gain.value = 0.0
-      padGain.connect(master)
-      const o1 = ctx.createOscillator()
-      o1.type = 'sine'; o1.frequency.value = 110
-      const o2 = ctx.createOscillator()
-      o2.type = 'sine'; o2.frequency.value = 164.81
-      const o3 = ctx.createOscillator()
-      o3.type = 'sine'; o3.frequency.value = 220
-      ;[o1, o2, o3].forEach(o => { o.connect(padGain); o.start() })
-      this.padGain = padGain
-
-      master.gain.cancelScheduledValues(ctx.currentTime)
-      master.gain.linearRampToValueAtTime(0.45, ctx.currentTime + 2.5)
-      padGain.gain.linearRampToValueAtTime(0.025, ctx.currentTime + 4)
-      this.started = true
-    } catch (e) {
-      console.warn('audio init failed', e)
+    this.el = new window.Audio('/assets/sertamulia.mp3')
+    this.el.loop = true
+    this.el.volume = 0
+    this.started = true
+    if (this.on) {
+      this.el.play().catch(() => {})
+      this._fadeTo(0.7, 2500)
     }
   },
+
   setOn(on) {
-    if (!this.ctx) { if (on) this.start(); else return }
-    const t = this.ctx.currentTime
-    this.gain.gain.cancelScheduledValues(t)
-    this.gain.gain.linearRampToValueAtTime(on ? 0.45 : 0.0, t + 1.2)
+    this.on = on
+    if (!this.started) { if (on) this.start(); return }
+    if (on) {
+      this.el.play().catch(() => {})
+      this._fadeTo(0.7, 1200)
+    } else {
+      this._fadeTo(0, 1200, () => this.el.pause())
+    }
   },
+
   setMood(mood) {
-    if (!this.padGain) return
-    const t = this.ctx.currentTime
-    const m = { soft: 0.02, intimate: 0.04, tense: 0.012, calm: 0.05 }
-    this.padGain.gain.cancelScheduledValues(t)
-    this.padGain.gain.linearRampToValueAtTime(m[mood] ?? 0.025, t + 2)
+    if (!this.el) return
+    const vol = { soft: 0.7, intimate: 0.7, tense: 0.7, calm: 0.25 }
+    this._fadeTo(vol[mood] ?? 0.7, 2000)
+  },
+
+  _fadeTo(target, duration, cb) {
+    if (!this.el) return
+    if (this._raf) cancelAnimationFrame(this._raf)
+    const start = this.el.volume
+    const diff = target - start
+    const t0 = performance.now()
+    const step = (now) => {
+      const p = Math.min((now - t0) / duration, 1)
+      this.el.volume = Math.max(0, Math.min(1, start + diff * p))
+      if (p < 1) { this._raf = requestAnimationFrame(step) }
+      else { this._raf = null; if (cb) cb() }
+    }
+    this._raf = requestAnimationFrame(step)
   },
 }
 
@@ -138,7 +119,7 @@ export function AudioToggle({ on, onChange }) {
   return (
     <button className={`audio-toggle ${on ? 'on' : ''}`} onClick={() => onChange(!on)}>
       <span className="dot"></span>
-      <span>ambience {on ? 'on' : 'off'}</span>
+      <span>suasana {on ? 'on' : 'off'}</span>
     </button>
   )
 }
